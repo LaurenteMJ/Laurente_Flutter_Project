@@ -2,5 +2,5 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 
 void main() {
-  runApp(const SemesterProjectApp());
+  runApp(const LaurenteProjectApp());
 }

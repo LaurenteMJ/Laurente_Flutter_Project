@@ -3,7 +3,7 @@ import 'package:laurente_project/app.dart';
 
 void main() {
   testWidgets('Home page opens and navigates to Login', (tester) async {
-    await tester.pumpWidget(const SemesterProjectApp());
+    await tester.pumpWidget(const LaurenteProjectApp());
 
     expect(find.text('CampusEats'), findsOneWidget);
     expect(find.text('Good food.\nMade easy.'), findsOneWidget);
@@ -17,7 +17,7 @@ void main() {
   });
 
   testWidgets('Login form shows validation for empty fields', (tester) async {
-    await tester.pumpWidget(const SemesterProjectApp());
+    await tester.pumpWidget(const LaurenteProjectApp());
 
     await tester.tap(find.text('Log in').first);
     await tester.pumpAndSettle();
