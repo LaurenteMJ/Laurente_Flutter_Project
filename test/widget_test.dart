@@ -1,30 +1,33 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:laurente_project/main.dart';
+import 'package:laurente_project/app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Home page opens and navigates to Login', (tester) async {
+    await tester.pumpWidget(const SemesterProjectApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('CampusEats'), findsOneWidget);
+    expect(find.text('Good food.\nMade easy.'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.text('Log in').first);
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Welcome back'), findsOneWidget);
+    expect(find.text('Email address'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
+  });
+
+  testWidgets('Login form shows validation for empty fields', (tester) async {
+    await tester.pumpWidget(const SemesterProjectApp());
+
+    await tester.tap(find.text('Log in').first);
+    await tester.pumpAndSettle();
+    final loginButton = find.text('Log in').last;
+    await tester.ensureVisible(loginButton);
+    await tester.pumpAndSettle();
+    await tester.tap(loginButton);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Please enter your email.'), findsOneWidget);
+    expect(find.text('Please enter your password.'), findsOneWidget);
   });
 }
